@@ -148,4 +148,225 @@
             border-radius: 16px;
             margin-bottom: 35px;
             max-height: 250px;
-            overflow-y: auto
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- LA FLOR MÁGICA 3D / ANIMADA --- */
+        .wrapper-flor {
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .box-flor {
+            position: relative;
+            width: 100px;
+            height: 160px;
+            transform: scale(0);
+            transform-origin: bottom center;
+            transition: transform 2.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .tallo {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 6px;
+            height: 110px;
+            background: linear-gradient(to top, #15803d, #22c55e);
+            transform: translateX(-50%);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
+        }
+
+        /* Hojas del tallo */
+        .hoja-izq, .hoja-der {
+            position: absolute;
+            width: 20px;
+            height: 12px;
+            background: #22c55e;
+            border-radius: 10px 0 10px 0;
+            top: 60px;
+            left: 31px;
+            transform: rotate(-30deg);
+        }
+        .hoja-der {
+            left: 49px;
+            border-radius: 0 10px 0 10px;
+            transform: rotate(30deg);
+            top: 45px;
+        }
+
+        /* Capullo y Pétalos con volumen (Degradados) */
+        .capullo {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            animation: balanceoFlor 4s ease-in-out infinite;
+        }
+
+        @keyframes balanceoFlor {
+            0%, 100% { transform: translateX(-50%) rotate(-3deg); }
+            50% { transform: translateX(-50%) rotate(3deg); }
+        }
+
+        .petalo {
+            position: absolute;
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(-45deg);
+            box-shadow: 0 4px 10px rgba(255, 117, 140, 0.4);
+        }
+
+        /* Formación tridimensional de la flor */
+        .p1 { transform: rotate(0deg); top: 0; left: 11px; }
+        .p2 { transform: rotate(72deg); top: 10px; left: 25px; }
+        .p3 { transform: rotate(144deg); top: 25px; left: 18px; }
+        .p4 { transform: rotate(216deg); top: 22px; left: 2px; }
+        .p5 { transform: rotate(288deg); top: 5px; left: 0; }
+
+        .centro {
+            position: absolute;
+            top: 17px;
+            left: 17px;
+            background: linear-gradient(135deg, #fef08a 0%, #eab308 100%);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #facc15;
+            z-index: 5;
+        }
+
+        /* Destellos mágicos */
+        .brillos {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        @keyframes destellar {
+            0%, 100% { transform: scale(0.8); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="caja-principal">
+        
+        <div id="bloque-login">
+            <h1>❄️ ACCESO EXCLUSIVO ❄️</h1>
+            <p>A ver, madrileña... Ya sabes cómo nos va el vacile. He bloqueado tu sorpresa detrás de un muro de hielo. ¿Serás capaz de adivinar la contraseña?</p>
+            <div class="grupo-input">
+                <input type="password" id="password-input" placeholder="Introduce la palabra clave...">
+            </div>
+            <button onclick="verificarContrasena()">Desbloquear</button>
+            <div id="mensaje-error"></div>
+        </div>
+
+        <div id="contenido-secreto">
+            <h1 style="background: linear-gradient(to right, #ff758c, #ff7eb3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">¡Acertaste, Frozen! 👑</h1>
+            
+            <div class="carta">
+Hola Claudia,
+
+Sabes de sobra que lo nuestro no es normal, que siempre estamos con el pique, las sorpresas y las adivinanzas, pero hoy me apetecía currarme algo diferente solo para ti.
+
+Aunque estés en Madrid y a veces la distancia joda un poco, quería recordarte lo increíblemente especial que eres para mí. Eres mi princesa (y mi Frozen favorita, aunque me pongas caras). Gracias por cada risa, por cada pique y por ser exactamente como eres.
+
+Esta flor que va a nacer aquí abajo es tuya, para que veas que ni la pantalla ni los kilómetros me impiden mandarte un detalle único. Te quiero.
+            </div>
+
+            <div class="wrapper-flor">
+                <div class="box-flor" id="mi-flor">
+                    <div class="tallo">
+                        <div class="hoja-izq"></div>
+                        <div class="hoja-der"></div>
+                    </div>
+                    <div class="capullo">
+                        <div class="petalo p1"></div>
+                        <div class="petalo p2"></div>
+                        <div class="petalo p3"></div>
+                        <div class="petalo p4"></div>
+                        <div class="petalo p5"></div>
+                        <div class="centro"></div>
+                    </div>
+                </div>
+                <div class="brillos" id="zona-brillos" style="font-size: 20px; color: #facc15; position: absolute; top: 20px;">✨ ✨</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- EFECTO DE NIEVE GENERADO POR CÓDIGO ---
+        const cantidadCopos = 30;
+        const body = document.body;
+
+        for (let i = 0; i < cantidadCopos; i++) {
+            const copo = document.createElement('div');
+            copo.classList.add('copo');
+            copo.innerText = '❄️';
+            copo.style.left = Math.random() * 100 + 'vw';
+            copo.style.animationDuration = (Math.random() * 3 + 2) + 's'; // Velocidades aleatorias
+            copo.style.animationDelay = Math.random() * 5 + 's';
+            copo.style.fontSize = (Math.random() * 0.8 + 0.6) + 'rem';
+            body.appendChild(copo);
+        }
+
+        // --- LÓGICA DE CONTRASEÑA ---
+        const contrasenaCorrecta = "frozen"; 
+
+        const respuestasIncorrectas = [
+            "Frío, frío... como tu corazón de hielo. ¡Inténtalo otra vez! 🧊",
+            "¿Esa contraseña? Qué poca fe tienes... Piensa un poco, madrileña. 😜",
+            "Nones. Te conozco y sé que puedes hacerlo mejor. 🏛️",
+            "¡Error! Si no te la sabes, me vas a tener que pagar una buena cena... 🍕"
+        ];
+
+        function verificarContrasena() {
+            const input = document.getElementById("password-input").value.trim().toLowerCase();
+            const mensajeError = document.getElementById("mensaje-error");
+            
+            if (input === contrasenaCorrecta) {
+                // Transición limpia ocultando y mostrando el contenido
+                document.getElementById("bloque-login").style.display = "none";
+                const contenido = document.getElementById("contenido-secreto");
+                contenido.style.display = "block";
+                
+                // Efecto de aparición fluida del bloque secreto
+                setTimeout(() => { contenido.style.opacity = "1"; }, 50);
+                
+                // La flor crece con un efecto pop up en 3D
+                setTimeout(() => {
+                    document.getElementById("mi-flor").style.transform = "scale(1.2)";
+                    document.getElementById("zona-brillos").style.opacity = "1";
+                    document.getElementById("zona-brillos").style.animation = "destellar 2s ease infinite";
+                }, 400);
+            } else {
+                const fraseAleatoria = respuestasIncorrectas[Math.floor(Math.random() * respuestasIncorrectas.length)];
+                mensajeError.innerText = fraseAleatoria;
+                document.getElementById("password-input").value = "";
+            }
+        }
+
+        // Enviar con la tecla Enter
+        document.getElementById("password-input").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") { verificarContrasena(); }
+        });
+    </script>
+</body>
+</html>
