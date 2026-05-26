@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Princesa ❄️</title>
+    <style>
+        /* --- ESTILOS GENERALES Y FONDO --- */
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            color: #333;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            max-width: 450px;
+            width: 90%;
+            transition: all 0.5s ease;
+        }
+        /* --- PANTALLA DE CONTRASEÑA --- */
+        
+        h1 {
+            color: #4a90e2;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        input[type="password"] {
+            padding: 12px 20px;
+            width: 80%;
+            border: 2px solid #8ec5fc;
+            border-radius: 50px;
+            font-size: 16px;
+            outline: none;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #357abd;
+            transform: translateY(-2px);
+        }
+        
+        #mensaje-error {
+            color: #ff4d4d;
+            font-weight: bold;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+        /* --- CONTENIDO OCULTO (LA CARTA) --- */
+        
+        #contenido-secreto {
+            display: none;
+        }
+        
+        .carta {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+            text-align: left;
+            white-space: pre-wrap;
+            margin-bottom: 30px;
+        }
+        /* --- ANIMACIÓN DE LA FLOR (CSS ART) --- */
+        
+        .box-flor {
+            position: relative;
+            width: 100px;
+            height: 150px;
+            margin: 0 auto;
+            transform: scale(0);
+            transition: transform 2s ease-out;
+            /* Hace que crezca suavemente */
+        }
+        
+        .tallo {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 6px;
+            height: 100px;
+            background: #4caf50;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+        
+        .petalo {
+            position: absolute;
+            background: #ff6584;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            opacity: 0.9;
+        }
+        /* Posiciones de los pétalos para formar la flor */
+        
+        .p1 {
+            top: 15px;
+            left: 30px;
+        }
+        
+        .p2 {
+            top: 35px;
+            left: 15px;
+        }
+        
+        .p3 {
+            top: 35px;
+            left: 45px;
+        }
+        
+        .p4 {
+            top: 55px;
+            left: 30px;
+        }
+        
+        .centro {
+            position: absolute;
+            top: 37px;
+            left: 37px;
+            background: #ffd700;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="caja-principal">
+        <!-- Bloque de Login -->
+        <div id="bloque-login">
+            <h1>❄️ Solo para mi Princesa de Madrid ❄️</h1>
+            <p>Ya sabes cómo nos gusta jugar... Si quieres tu sorpresa, vas a tener que adivinar la contraseña correcta. ¿Te atreves?</p>
+            <input type="password" id="password-input" placeholder="Introduce la contraseña aquí...">
+            <br>
+            <button onclick="verificarContrasena()">Desbloquear</button>
+            <div id="mensaje-error"></div>
+        </div>
+
+        <!-- Bloque de Contenido Secreto -->
+        <div id="contenido-secreto">
+            <h1 style="color: #ff6584;">¡Acertaste, Frozen! 👑</h1>
+
+            <!-- Aquí va la carta, puedes editar el texto a tu gusto -->
+            <div class="carta">
+                Hola Claudia, Sabes de sobra que lo nuestro no es normal, que siempre estamos con el vacile y las adivinanzas, pero hoy me apetecía sorprenderte de una forma diferente. Aunque estés en Madrid y a veces la distancia pese, quería recordarte lo especial
+                que eres para mí. Eres mi princesa (y mi Frozen favorita, aunque te quejes). Gracias por cada risa, por cada pique y por ser tú. Esta flor de abajo es para ti, para que veas que ni la tecnología me impide mandarte un detalle. Te quiero.
+            </div>
+
+            <!-- Contenedor de la flor que crecerá al completarse -->
+            <div class="box-flor" id="mi-flor">
+                <div class="tallo"></div>
+                <div class="petalo p1"></div>
+                <div class="petalo p2"></div>
+                <div class="petalo p3"></div>
+                <div class="petalo p4"></div>
+                <div class="centro"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- LÓGICA EN JAVASCRIPT --- -->
+    <script>
+        // Aquí pones la contraseña que tú quieras (en minúsculas)
+        const contrasenaCorrecta = "frozen";
+
+        // Lista de frases de vacile si falla
+        const respuestasIncorrectas = [
+            "Frío, frío... como tu corazón de hielo. ¡Inténtalo otra vez! 🧊",
+            "¿Esa es la contraseña? Qué poca fe tienes... Piensa un poco más. 😜",
+            "Nones. Te conozco y sé que puedes hacerlo mejor, madrileña. 🏛️",
+            "¡Error! Si no la sabes, me vas a tener que deber una cena... 🍕"
+        ];
+
+        function verificarContrasena() {
+            const input = document.getElementById("password-input").value.trim().toLowerCase();
+            const mensajeError = document.getElementById("mensaje-error");
+
+            if (input === contrasenaCorrecta) {
+                // Ocultamos el login y mostramos la carta
+                document.getElementById("bloque-login").style.display = "none";
+                document.getElementById("contenido-secreto").style.display = "block";
+
+                // Hacemos que la flor crezca tras un pequeño retraso
+                setTimeout(() => {
+                    document.getElementById("mi-flor").style.transform = "scale(1.2)";
+                }, 300);
+            } else {
+                // Elegimos una frase de vacile aleatoria de la lista
+                const fraseAleatoria = respuestasIncorrectas[Math.floor(Math.random() * respuestasIncorrectas.length)];
+                mensajeError.innerText = fraseAleatoria;
+                document.getElementById("password-input").value = ""; // Limpia el input
+            }
+        }
+
+        // Permite presionar 'Enter' para enviar la contraseña
+        document.getElementById("password-input").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                verificarContrasena();
+            }
+        });
+    </script>
+</body>
+
+</html>
