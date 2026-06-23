@@ -1,0 +1,119 @@
+/* Configuración General */
+body {
+    background-color: #f9f5f0; /* Un tono crema suave, elegante y romántico */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+/* --- ESTILO DE LA CARTA --- */
+.carta {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-left: 5px solid #d4a373; /* Un detalle de color dorado/madera */
+}
+
+.texto-carta {
+    line-height: 1.6;
+    font-style: italic;
+    color: #555;
+}
+
+/* --- ESTILO DE LA FLOR --- */
+.flor {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 50px auto;
+}
+
+.centro-flor {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 50px;
+    height: 50px;
+    background-color: #f4a261; /* Centro naranja/amarillo */
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.petalo {
+    position: absolute;
+    top: 50px;
+    left: 25px;
+    width: 100px;
+    height: 50px;
+    background-color: #e76f51; /* Pétalos color coral/rojo suave */
+    border-radius: 50px;
+}
+
+/* Rotamos los pétalos para formar la flor */
+.p1 { transform: rotate(0deg); }
+.p2 { transform: rotate(45deg); }
+.p3 { transform: rotate(90deg); }
+.p4 { transform: rotate(135deg); }
+
+.tallo {
+    position: absolute;
+    top: 100px;
+    left: 72px;
+    width: 6px;
+    height: 100px;
+    background-color: #2a9d8f; /* Tallo verde */
+    z-index: 1;
+}
+
+/* --- ESTILO DE LOS BOMBONES --- */
+.caja-bombones {
+    background-color: #3d2314; /* Color caja de chocolate oscuro */
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.bombon {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle at 30% 30%, #704214, #422206); /* Chocolate con leche y sombra */
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+}
+
+/* Variaciones de bombones */
+.bombon.fresa {
+    background: radial-gradient(circle at 30% 30%, #ff85a1, #a31d3b);
+}
+
+.bombon.blanco {
+    background: radial-gradient(circle at 30% 30%, #fff3e3, #d4be9f);
+}
+
+/* El detalle de crema arriba del bombón */
+.crema {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 30px;
+    height: 10px;
+    border-radius: 50%;
+    border-top: 3px solid rgba(255,255,255,0.4);
+}
