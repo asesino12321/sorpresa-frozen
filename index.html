@@ -3,366 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para mi Princesa ❄️</title>
-    <style>
-        /* --- CONFIGURACIÓN BASE Y FONDO ANIMADO --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #74ebd5);
-            background-size: 400% 400%;
-            animation: gradienteFondo 15s ease infinite;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            perspective: 1000px; /* Habilita efectos 3D en la pantalla */
-        }
-
-        @keyframes gradienteFondo {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* --- COPOS DE NIEVE FLOTANTES (EFECTO FROZEN) --- */
-        .copo {
-            position: absolute;
-            top: -10px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.2rem;
-            user-select: none;
-            pointer-events: none;
-            animation: caida Nieva linear infinite;
-        }
-
-        @keyframes caida {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* --- CONTENEDOR EFECTO CRISTAL 3D (GLASSMORPHISM) --- */
-        .container {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 40px 30px;
-            width: 90%;
-            max-width: 460px;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 
-                        inset 0 0 20px rgba(255, 255, 255, 0.1);
-            transform: translateZ(0);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            z-index: 10;
-        }
-
-        .container:hover {
-            transform: scale(1.02) rotateX(2deg);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(255, 255, 255, 0.2);
-        }
-
-        /* --- TEXTOS --- */
-        h1 {
-            font-size: 26px;
-            background: linear-gradient(to right, #ffffff, #a5f3fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            font-weight: 800;
-            text-shadow: 0 2px 10px rgba(255,255,255,0.1);
-        }
-
-        p {
-            color: #e2e8f0;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        /* --- ENTRADAS Y BOTONES ESTILO PREMIUM --- */
-        .grupo-input { position: relative; margin-bottom: 20px; }
-
-        input[type="password"] {
-            width: 100%;
-            padding: 14px 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            color: white;
-            font-size: 16px;
-            outline: none;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        input[type="password"]:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        button {
-            background: linear-gradient(135deg, #38bdf8 0%, #0369a1 100%);
-            color: white;
-            border: none;
-            padding: 14px 40px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 15px rgba(3, 105, 161, 0.4);
-        }
-
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.6);
-        }
-
-        #mensaje-error {
-            color: #f87171;
-            font-weight: 600;
-            margin-top: 15px;
-            font-size: 14px;
-            min-height: 20px;
-        }
-
-        /* --- SECCIÓN OCULTA (CARTA) --- */
-        #contenido-secreto { display: none; opacity: 0; transition: opacity 0.8s ease; }
-        
-        .carta {
-            color: #f1f5f9;
-            font-size: 15px;
-            line-height: 1.7;
-            text-align: left;
-            white-space: pre-wrap;
-            background: rgba(0, 0, 0, 0.15);
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 35px;
-            max-height: 250px;
-            overflow-y: auto;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* --- LA FLOR MÁGICA 3D / ANIMADA --- */
-        .wrapper-flor {
-            height: 180px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            margin-top: 20px;
-            position: relative;
-        }
-
-        .box-flor {
-            position: relative;
-            width: 100px;
-            height: 160px;
-            transform: scale(0);
-            transform-origin: bottom center;
-            transition: transform 2.5s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        .tallo {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 6px;
-            height: 110px;
-            background: linear-gradient(to top, #15803d, #22c55e);
-            transform: translateX(-50%);
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
-        }
-
-        /* Hojas del tallo */
-        .hoja-izq, .hoja-der {
-            position: absolute;
-            width: 20px;
-            height: 12px;
-            background: #22c55e;
-            border-radius: 10px 0 10px 0;
-            top: 60px;
-            left: 31px;
-            transform: rotate(-30deg);
-        }
-        .hoja-der {
-            left: 49px;
-            border-radius: 0 10px 0 10px;
-            transform: rotate(30deg);
-            top: 45px;
-        }
-
-        /* Capullo y Pétalos con volumen (Degradados) */
-        .capullo {
-            position: absolute;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 60px;
-            animation: balanceoFlor 4s ease-in-out infinite;
-        }
-
-        @keyframes balanceoFlor {
-            0%, 100% { transform: translateX(-50%) rotate(-3deg); }
-            50% { transform: translateX(-50%) rotate(3deg); }
-        }
-
-        .petalo {
-            position: absolute;
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
-            border-radius: 50% 50% 0 50%;
-            transform: rotate(-45deg);
-            box-shadow: 0 4px 10px rgba(255, 117, 140, 0.4);
-        }
-
-        /* Formación tridimensional de la flor */
-        .p1 { transform: rotate(0deg); top: 0; left: 11px; }
-        .p2 { transform: rotate(72deg); top: 10px; left: 25px; }
-        .p3 { transform: rotate(144deg); top: 25px; left: 18px; }
-        .p4 { transform: rotate(216deg); top: 22px; left: 2px; }
-        .p5 { transform: rotate(288deg); top: 5px; left: 0; }
-
-        .centro {
-            position: absolute;
-            top: 17px;
-            left: 17px;
-            background: linear-gradient(135deg, #fef08a 0%, #eab308 100%);
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            box-shadow: 0 0 12px #facc15;
-            z-index: 5;
-        }
-
-        /* Destellos mágicos */
-        .brillos {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 2s ease;
-        }
-
-        @keyframes destellar {
-            0%, 100% { transform: scale(0.8); opacity: 0.3; }
-            50% { transform: scale(1.2); opacity: 1; }
-        }
-    </style>
+    <title>Feliz Cumpleaños</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container" id="caja-principal">
-        
-        <div id="bloque-login">
-            <h1>❄️ ACCESO EXCLUSIVO ❄️</h1>
-            <p>Ahora que ya has leido la carta.. Viene una pequeña sorpresa con candado, recuerda tus motes y el hielo se derritirá...</p>
-            <div class="grupo-input">
-                <input type="password" id="password-input" placeholder="Introduce la palabra clave...">
-            </div>
-            <button onclick="verificarContrasena()">Desbloquear</button>
-            <div id="mensaje-error"></div>
+    <section class="seccion-carta">
+        <div class="carta">
+            <h1>¡Feliz Cumpleaños! 🇮🇹</h1>
+            <p class="texto-carta">
+                "Aunque estés en Italia celebrando, no quería dejar pasar el día sin mandarte un detalle único. 
+                Espero que estés disfrutando muchísimo de cada rincón. Aquí tienes un pedacito de algo hecho 100% para ti..."
+            </p>
         </div>
+    </section>
 
-        <div id="contenido-secreto">
-            <h1 style="background: linear-gradient(to right, #ff758c, #ff7eb3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">¡Acertaste, Frozen! 👑</h1>
-            
-            <div class="carta">
-Adivinaste la CONTRASEÑA!! ahora te falta las sorpresas de verano jajaja, bueno, aunque ya has leido la carta solo queria recordarte lo tan extrañamente e inesperadamente importante que te has convertido para mi
-y aunque entre tu y yo haya más de un kilometro por extraño que parezca siento que en verdad estas más cerca que en la realidad, todavia hace falta descubrirte y conocerte a fondo, y sinceramente yo ya firmé ese trato,
-me debes muchos planes y enseñarme Judo JAJAJA,Ah, te hice una mini rosa, no es mucho comparado con lo que me gustaría pero es diferente y un poco más divertido :). Pd: Para mi princesa.
+    <section class="seccion-flores">
+        <h2>Unas flores que no se marchitan...</h2>
+        <div class="flor">
+            <div class="petalo p1"></div>
+            <div class="petalo p2"></div>
+            <div class="petalo p3"></div>
+            <div class="petalo p4"></div>
+            <div class="centro-flor"></div>
+            <div class="tallo"></div>
+        </div>
+    </section>
+
+    <section class="seccion-bombones">
+        <h2>Y una caja de bombones (sin calorías)</h2>
+        <div class="caja-bombones">
+            <div class="bombon" onclick="comerBombon(this)">
+                <div class="crema"></div>
             </div>
-
-            <div class="wrapper-flor">
-                <div class="box-flor" id="mi-flor">
-                    <div class="tallo">
-                        <div class="hoja-izq"></div>
-                        <div class="hoja-der"></div>
-                    </div>
-                    <div class="capullo">
-                        <div class="petalo p1"></div>
-                        <div class="petalo p2"></div>
-                        <div class="petalo p3"></div>
-                        <div class="petalo p4"></div>
-                        <div class="petalo p5"></div>
-                        <div class="centro"></div>
-                    </div>
-                </div>
-                <div class="brillos" id="zona-brillos" style="font-size: 20px; color: #facc15; position: absolute; top: 20px;">✨ ✨</div>
+            <div class="bombon fresa" onclick="comerBombon(this)">
+                <div class="crema"></div>
+            </div>
+            <div class="bombon blanco" onclick="comerBombon(this)">
+                <div class="crema"></div>
             </div>
         </div>
-    </div>
+    </section>
 
     <script>
-        // --- EFECTO DE NIEVE GENERADO POR CÓDIGO ---
-        const cantidadCopos = 30;
-        const body = document.body;
-
-        for (let i = 0; i < cantidadCopos; i++) {
-            const copo = document.createElement('div');
-            copo.classList.add('copo');
-            copo.innerText = '❄️';
-            copo.style.left = Math.random() * 100 + 'vw';
-            copo.style.animationDuration = (Math.random() * 3 + 2) + 's'; // Velocidades aleatorias
-            copo.style.animationDelay = Math.random() * 5 + 's';
-            copo.style.fontSize = (Math.random() * 0.8 + 0.6) + 'rem';
-            body.appendChild(copo);
+        // Una pizca de JavaScript para que pueda interactuar con los bombones
+        function comerBombon(elemento) {
+            elemento.style.opacity = '0.2'; // Hace que el bombón se "desvanezca" como si se lo hubiera comido
+            elemento.style.transform = 'scale(0.8)';
+            elemento.style.pointerEvents = 'none'; // Evita que se vuelva a pulsar
         }
-
-        // --- LÓGICA DE CONTRASEÑA ---
-        const contrasenaCorrecta = "frozen"; 
-
-        const respuestasIncorrectas = [
-            "Frío, frío... como tu corazón de hielo. ¡Inténtalo otra vez! 🧊",
-            "¿Esa contraseña? Qué poca fe tienes... Piensa un poco, madrileña. 😜",
-            "Nones. Te conozco y sé que puedes hacerlo mejor. 🏛️",
-            "¡Error! Si no te la sabes, me vas a tener que pagar una buena cena... 🍕"
-        ];
-
-        function verificarContrasena() {
-            const input = document.getElementById("password-input").value.trim().toLowerCase();
-            const mensajeError = document.getElementById("mensaje-error");
-            
-            if (input === contrasenaCorrecta) {
-                // Transición limpia ocultando y mostrando el contenido
-                document.getElementById("bloque-login").style.display = "none";
-                const contenido = document.getElementById("contenido-secreto");
-                contenido.style.display = "block";
-                
-                // Efecto de aparición fluida del bloque secreto
-                setTimeout(() => { contenido.style.opacity = "1"; }, 50);
-                
-                // La flor crece con un efecto pop up en 3D
-                setTimeout(() => {
-                    document.getElementById("mi-flor").style.transform = "scale(1.2)";
-                    document.getElementById("zona-brillos").style.opacity = "1";
-                    document.getElementById("zona-brillos").style.animation = "destellar 2s ease infinite";
-                }, 400);
-            } else {
-                const fraseAleatoria = respuestasIncorrectas[Math.floor(Math.random() * respuestasIncorrectas.length)];
-                mensajeError.innerText = fraseAleatoria;
-                document.getElementById("password-input").value = "";
-            }
-        }
-
-        // Enviar con la tecla Enter
-        document.getElementById("password-input").addEventListener("keyup", function(event) {
-            if (event.key === "Enter") { verificarContrasena(); }
-        });
     </script>
 </body>
 </html>
